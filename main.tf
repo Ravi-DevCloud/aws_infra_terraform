@@ -56,3 +56,29 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public_subnets[count.index].id
   route_table_id = aws_route_table.public.id
 }
+
+resource "aws_security_group" "web_sg" {
+  vpc_id = aws_vpc.main-vpc.id
+
+  ingress {
+    from_port   = var.nginx_port
+    to_port     = var.nginx_port
+    protocol    = var.protocol
+    cidr_blocks = var.sg_cidr_block
+  }
+
+  ingress {
+    from_port   = var.ssh_port
+    to_port     = var.ssh_port
+    protocol    = var.protocol
+    cidr_blocks = var.sg_cidr_block
+  }
+
+  egress {
+    from_port   = var.sg_outbound_port
+    to_port     = var.sg_outbound_port
+    protocol    = var.sg_outbound_protocol
+    cidr_blocks = var.sg_cidr_block
+  }
+}
+

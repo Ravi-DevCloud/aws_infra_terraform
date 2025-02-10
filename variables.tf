@@ -27,3 +27,27 @@ variable "public_routes" {
   type    = string
   default = "0.0.0.0/0"
 }
+
+variable "nginx_port" {
+  type    = number
+  default = 80
+}
+
+variable "protocol" {
+  type = string
+}
+
+variable "ssh_port" {
+  type    = number
+  default = 22
+}
+
+variable "sg_cidr_block" {
+  type = list(string)
+}
+variable "sg_outbound_port" {
+  type = number
+}
+variable "sg_outbound_protocol" {
+  type = string
+}
