@@ -51,3 +51,9 @@ variable "sg_outbound_port" {
 variable "sg_outbound_protocol" {
   type = string
 }
+variable "ec2_ami" {
+  type = string
+}
+variable "instance_type" {
+  type = string
+}

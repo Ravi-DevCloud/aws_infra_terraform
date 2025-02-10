@@ -82,3 +82,13 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
+resource "aws_instance" "nginx_server" {
+  ami             = var.ec2_ami
+  instance_type   = var.instance_type
+  subnet_id       = aws_subnet.public_subnets[0].id
+  security_groups = [aws_security_group.web_sg.name]
+
+  tags = {
+    Name = "NginxServer"
+  }
+}
