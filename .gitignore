@@ -1,0 +1,8 @@
+# Ignore Terraform working directory
+.terraform/
+
+# Ignore provider-specific lock files
+.terraform.lock.hcl
+
+# Ignore Terraform variable files that may contain sensitive information
+*.tfvars
