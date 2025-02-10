@@ -28,3 +28,31 @@ resource "aws_subnet" "private_subnets" {
   }
 
 }
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main-vpc.id
+
+  tags = {
+    Name = "igw"
+  }
+}
+
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main-vpc.id
+
+  route {
+    cidr_block = var.public_routes
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "public"
+  }
+}
+
+resource "aws_route_table_association" "public" {
+  count          = length(var.public_subnets)
+  subnet_id      = aws_subnet.public_subnets[count.index].id
+  route_table_id = aws_route_table.public.id
+}
